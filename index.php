@@ -48,20 +48,70 @@ $documents = [
         .container { max-width: 1200px; margin: auto; padding: 0 30px; }
         .full-width { width: 100vw; margin-left: calc(50% - 50vw); }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER REVISADO PARA MÓVIL ===== */
         header {
             position: fixed; top: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         nav { height: 80px; display: flex; align-items: center; justify-content: space-between; }
-        .logo { display: flex; align-items: center; gap: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; }
-        .logo img { height: 45px; }
+        
+        .logo { display: flex; align-items: center; gap: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; z-index: 1100; }
+        .logo img { height: 40px; }
+        .logo span { font-size: 1.1rem; }
+
+        /* Menú Desktop */
         nav ul { list-style: none; display: flex; gap: 25px; }
         nav a { color: white; text-decoration: none; font-weight: 500; cursor: pointer; transition: 0.3s; }
         nav a:hover { color: var(--secondary); }
+
+        /* Botón Hamburguesa */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1100;
+            padding: 10px;
+        }
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        /* Responsive Nav */
+        @media(max-width: 992px) {
+            .menu-toggle { display: flex; }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            }
+
+            nav ul.active { right: 0; }
+            
+            nav ul li { margin: 15px 0; }
+            nav a { font-size: 1.5rem; }
+
+            /* Animación Hamburguesa */
+            .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+            .menu-toggle.open span:nth-child(2) { opacity: 0; }
+            .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+        }
 
         /* ===== VIDEO SYSTEM ===== */
         .bg-video { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
@@ -89,8 +139,8 @@ $documents = [
         }
         .section-content { position: relative; z-index: 3; width: 100%; }
 
-        .hero h2 { font-family: 'Poppins'; font-size: clamp(36px, 6vw, 64px); line-height: 1.1; margin-bottom: 20px; }
-        .hero p { max-width: 650px; font-size: 20px; color: #cbd5e1; margin-bottom: 40px; }
+        .hero h2 { font-family: 'Poppins'; font-size: clamp(32px, 6vw, 64px); line-height: 1.1; margin-bottom: 20px; }
+        .hero p { max-width: 650px; font-size: 18px; color: #cbd5e1; margin-bottom: 40px; }
 
         .btn {
             display: inline-block; padding: 18px 48px;
@@ -108,11 +158,10 @@ $documents = [
             border-radius: 40px; overflow: hidden; 
             box-shadow: 0 25px 50px rgba(0,0,0,0.5); 
             height: 450px; border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 0px;
         }
         .map-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-        /* ===== SECCIÓN 2: SERVICES GRID ===== */
+        /* ===== SERVICES GRID ===== */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-bottom: 50px; }
         .service-item {
             background: var(--white-glass); color: var(--dark);
@@ -122,7 +171,7 @@ $documents = [
         .service-item i { font-size: 48px; color: var(--primary); margin-bottom: 25px; }
         .service-item h4 { font-family: 'Poppins'; font-size: 1.4rem; }
 
-        /* ===== SECCIÓN 3: INFO CARDS ===== */
+        /* ===== INFO CARDS ===== */
         .info-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .info-card {
             background: var(--white-glass); color: var(--dark);
@@ -148,7 +197,7 @@ $documents = [
         @keyframes modalIn { from { opacity: 0; transform: scale(0.9) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .modal-close { position: absolute; top: 25px; right: 30px; font-size: 28px; cursor: pointer; color: #94a3b8; }
 
-        /* ===== DOWNLOAD GRID (INFORMAÇÕES) ===== */
+        /* ===== DOWNLOAD GRID ===== */
         .download-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px; margin-top: 30px;
@@ -162,12 +211,12 @@ $documents = [
         .download-card:hover { background: #e2e8f0; border-color: var(--primary); transform: translateY(-2px); }
         .download-card i { font-size: 24px; color: #ef4444; }
 
-        /* ===== CONTACT & SCHEDULE IN MODAL ===== */
+        /* ===== CONTACTS IN MODAL ===== */
         .schedule-display {
             background: #f8fafc; border-radius: 25px; padding: 30px; margin: 25px 0;
             display: grid; gap: 15px; border: 1px solid #e2e8f0;
         }
-        .schedule-row { display: flex; justify-content: space-between; align-items: center; }
+        .schedule-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .day-label { font-weight: 600; display: flex; align-items: center; gap: 10px; }
         
         .contact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
@@ -180,11 +229,17 @@ $documents = [
 
         footer { padding: 80px 0; text-align: center; color: #64748b; background: #0f172a; border-top: 1px solid rgba(255,255,255,0.05); }
 
+        /* ===== RESPONSIVE FIXES ===== */
         @media(max-width: 992px) {
             .info-container { grid-template-columns: 1fr; }
-            .hero h2 { font-size: 40px; }
+            .info-card { padding: 40px 30px; }
+            .hero h2 { font-size: 36px; }
             .contact-actions, .download-grid { grid-template-columns: 1fr; }
             .map-wrapper { height: 350px; }
+            .modal-box { padding: 40px 25px; }
+            .services-grid { gap: 15px; }
+            .service-item { padding: 40px 20px; }
+            .logo span { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -198,11 +253,18 @@ $documents = [
                 <img src="images/logo.PNG" alt="MyVetCare">
                 <span><?= $clinic["name"] ?></span>
             </div>
-            <ul>
-                <li><a onclick="openModal('infoModal')">Informações</a></li>
-                <li><a onclick="openModal('servicesModal')">Serviços</a></li>
-                <li><a onclick="openModal('aboutModal')">Sobre Nós</a></li>
-                <li><a onclick="openModal('contactModal')">Contactos</a></li>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul id="nav-list">
+                <li><a onclick="menuClose(); openModal('infoModal')">Informações</a></li>
+                <li><a onclick="menuClose(); openModal('servicesModal')">Serviços</a></li>
+                <li><a onclick="menuClose(); openModal('aboutModal')">Sobre Nós</a></li>
+                <li><a onclick="menuClose(); openModal('contactModal')">Contactos</a></li>
             </ul>
         </nav>
     </div>
@@ -301,15 +363,15 @@ $documents = [
     <div class="modal-box">
         <div class="modal-close" onclick="closeModal(null, 'servicesModal')">✕</div>
         <h2 style="font-family: Poppins; color: var(--primary); margin-bottom: 25px;">Nossos Serviços</h2>
-        <ul style="columns: 2; line-height: 2.8; color: #334155; padding-left: 20px;">
-            <li>Medicina preventiva</li>
-            <li>Identificação electrónica</li>
-            <li>Destartarização</li>
-            <li>Rx digital e Ecografias</li>
-            <li>Electrocardiograma</li>
-            <li>Banhos e tosquias</li>
-            <li>Domicílios</li>
-            <li>Cirurgias Gerais</li>
+        <ul style="columns: 1; line-height: 2.2; color: #334155; padding-left: 20px;">
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Medicina preventiva</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Identificação electrónica</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Destartarização</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Rx digital e Ecografias</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Electrocardiograma</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Banhos e tosquias</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Domicílios</li>
+            <li><i class="fas fa-check-circle" style="color:var(--secondary); margin-right:10px;"></i>Cirurgias Gerais</li>
         </ul>
     </div>
 </div>
@@ -334,11 +396,11 @@ $documents = [
         <div class="schedule-display">
             <div class="schedule-row">
                 <span class="day-label"><i class="far fa-clock"></i> Segunda a Sexta</span>
-                <span style="color:var(--primary); font-weight:600;">10h00–13h00 | 15h00–20h00</span>
+                <span style="color:var(--primary); font-weight:600;">10h-13h | 15h-20h</span>
             </div>
             <div class="schedule-row">
                 <span class="day-label"><i class="far fa-clock"></i> Sábado</span>
-                <span style="color:var(--primary); font-weight:600;">10h00–13h00 | 14h30–16h00</span>
+                <span style="color:var(--primary); font-weight:600;">10h-13h | 14h30-16h</span>
             </div>
         </div>
 
@@ -354,16 +416,33 @@ $documents = [
 </div>
 
 <script>
+    // Gestión del Menú Hamburguesa
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('open');
+        navList.classList.toggle('active');
+    });
+
+    function menuClose() {
+        menuToggle.classList.remove('open');
+        navList.classList.remove('active');
+    }
+
+    // Gestión de Modales
     function openModal(id) {
         document.getElementById(id).classList.add('active');
         document.body.style.overflow = 'hidden';
     }
+    
     function closeModal(e, id) {
         if (!e || e.target.id === id) {
             document.getElementById(id).classList.remove('active');
             document.body.style.overflow = '';
         }
     }
+
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
